@@ -26,5 +26,6 @@ export default function Examples() {
                 <TabButton isSelected={selectedTopic === 'props'} onSelect={() => { setSelectedTopic("props") }}>Props</TabButton>
                 <TabButton isSelected={selectedTopic === 'state'} onSelect={() => { setSelectedTopic("state") }}>State</TabButton>
             </menu>
+            {tabContent}
         </Section>)
 }
