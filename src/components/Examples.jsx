@@ -22,7 +22,7 @@ export default function Examples() {
 
     return (
         <Section title="Examples" id="examples">
-            <Tabs ButtonsContainer = "menu"
+            <Tabs 
             buttons={
                 <Fragment>
                     <TabButton isSelected={selectedTopic === 'components'} onClick={() => { setSelectedTopic("components") }}>Components</TabButton>
