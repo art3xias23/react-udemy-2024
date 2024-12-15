@@ -1,6 +1,7 @@
 import Player from './components/Player'
 import { WINNING_COMBINATIONS } from './components/winning-combinations';
 import Gameboard from './components/Gameboard'
+import GameOver from './components/GameOver';
 
 import {useState} from 'react';
 import Log from './components/Log';
@@ -31,20 +32,8 @@ for(const turn of gameTurns){
   gameBoard[row][col] = player;
 }
 
-let winner = null;
-// console.log("Winning");
-// console.log(WINNING_COMBINATIONS);
+let winner = "";
 for(const combination of  WINNING_COMBINATIONS){
-  // console.log("Comb:");
-  // console.log(combination);
-  // console.log("Gameboard");
-  // console.log(gameBoard);
-  // console.log("row");
-  // console.log(combination[0].row);
-  // console.log("col");
-  // console.log(combination[0].col);
-  console.log("col");
-  console.log(combination[2].col);
   const firstSquareSymbol = gameBoard[combination[0].row][combination[0].col];
   const secondSquareSymbol = gameBoard[combination[1].row][combination[1].col];
   const thirdSquareSymbol = gameBoard[combination[2].row][combination[2].col];
@@ -64,8 +53,6 @@ for(const combination of  WINNING_COMBINATIONS){
     }
     setGameTurns(prevTurns => {
     const currentPlayer = deriveActivePlayer(prevTurns);
-    console.log("Turns");
-    console.log(gameTurns);
       const updatedTurns = [{square: {row: rowIndex, col: colIndex},player:currentPlayer},...prevTurns,]
 
       return updatedTurns;
@@ -80,7 +67,9 @@ for(const combination of  WINNING_COMBINATIONS){
        <Player initialName="Player1" symbol="X" isActive={activePlayer === 'X'} /> 
        <Player initialName="Player2" symbol="O" isActive={activePlayer === 'O'} /> 
         </ol>
-        {winner && <p>You won! winner</p>}
+        {console.log("smbol")}
+        {console.log(winner)}
+        {winner && <GameOver symbol = {winner} />}
         <Gameboard onSelectSquare={handleSelectSquare} 
         board = {gameBoard}
         turns = {gameTurns}/>

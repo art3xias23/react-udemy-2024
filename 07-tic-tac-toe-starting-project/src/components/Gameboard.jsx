@@ -19,8 +19,6 @@ export default function Gameboard({onSelectSquare, board}) {
         {board.map((row, index) => 
         <li key={index}>
             <ol>
-                {console.log("Row:")}
-                {console.log(row)}
                 {row.map((col, colIndex) => <li key={colIndex}><button onClick={() => onSelectSquare(index, colIndex)}>{board[index][colIndex]}</button></li>)}
             </ol>
         </li>
