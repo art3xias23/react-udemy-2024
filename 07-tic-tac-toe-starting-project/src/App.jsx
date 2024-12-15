@@ -2,7 +2,6 @@ import Player from './components/Player'
 import { WINNING_COMBINATIONS } from './components/winning-combinations';
 import Gameboard from './components/Gameboard'
 import GameOver from './components/GameOver';
-
 import { useState } from 'react';
 import Log from './components/Log';
 const initialGameboard = [
@@ -20,12 +19,18 @@ function deriveActivePlayer(gameTurns) {
 }
 
 
+
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
   // const [activePlayer, setActivePlayer] = useState('X');
   const activePlayer = deriveActivePlayer(gameTurns);
 
-  let gameBoard = initialGameboard;
+function handleRestart(){
+  setGameTurns([]);
+}
+
+  let gameBoard = [...initialGameboard.map(array => [...array])];
+  // let gameBoard = initialGameboard;
   for (const turn of gameTurns) {
     const { square, player } = turn;
     const { row, col } = square;
@@ -70,7 +75,7 @@ function App() {
         </ol>
         {console.log("smbol")}
         {console.log(winner)}
-        {(winner || isDraw) && <GameOver symbol={winner} />}
+        {(winner || isDraw) && <GameOver symbol={winner} onRestart={handleRestart} />}
         <Gameboard onSelectSquare={handleSelectSquare}
           board={gameBoard}
           turns={gameTurns} />
