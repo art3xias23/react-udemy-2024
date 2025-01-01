@@ -12,7 +12,7 @@ export default function NewProject({updateProject}) {
         const name = nameRef.current.value;
         const desc = descRef.current.value;
         const date = startDate;
-        updateProject({name:name, desc:desc, date:date});
+        updateProject({name:name, desc:desc, date:date, tasks:[]});
     }
 
 

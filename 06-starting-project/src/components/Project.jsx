@@ -1,24 +1,16 @@
 import { useRef, useState } from 'react';
 export default function Project({ project, handleTask }) {
-    console.log(project)
     const formatter = new Intl.DateTimeFormat('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric'
     })
     function updateTasks(op, task, prName) {
-        if (op === "add") {
-
-            setTasks((prev) => [...tasks, task]);
-        }
-        else {
-
-        }
         handleTask(op, task, prName);
     }
-    const [tasks, setTasks] = useState(project.tasks);
 
     const taskRef = useRef();
+    const currentTaskRef = useRef([]);
     return (
         <div className="flex flex-col gap-5">
             <h1 className="font-bold text-3xl">{project.name}</h1>
@@ -36,10 +28,11 @@ export default function Project({ project, handleTask }) {
                 <button onClick={() => updateTasks("add", taskRef.current.value, project.name)}>Add Task</button>
             </div>
             <div className="flex flex-col gap-10">
-                {tasks.map((task, index) =>
+                {project.tasks.map((task, index) =>
                     <div key={index} className="w-full flex flex-row bg-gray-200 justify-between pe-20 ps-5 py-2">
-                        <div>{task}</div>
-                        <div><button onClick={() => updateTasks("clear", taskRef.current.value, project.name)}>Clear</button> </div>
+                        <div ref={(el)=> currentTaskRef.current[index]=el}>{task}</div>
+                        {console.log(currentTaskRef.current?.innerText)}
+                        <div><button onClick={() => updateTasks("clear", currentTaskRef.current[index]?.innerText, project.name)}>Clear</button> </div>
                     </div>
                 )}
             </div>
