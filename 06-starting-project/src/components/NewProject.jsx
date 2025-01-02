@@ -1,26 +1,39 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState, useRef } from "react";
+import Modal from "./Modal";
 
-export default function NewProject({updateProject}) {
+export default function NewProject({ updateProject }) {
     const [startDate, setStartDate] = useState();
-    const nameRef=useRef();
-    const descRef=useRef();
-    const dateRef= useRef();
+    const nameRef = useRef();
+    const descRef = useRef();
+    const dateRef = useRef();
+    const modalRef = useRef();
 
-    function handleSave(){
+    function handleSave() {
         const name = nameRef.current.value;
         const desc = descRef.current.value;
         const date = startDate;
-        updateProject({name:name, desc:desc, date:date, tasks:[]});
+        if (name.trim() == '' ||
+            desc.trim() == '') {
+            modalRef.current.open();
+        }
+        updateProject({ name: name, desc: desc, date: date, tasks: [] });
     }
 
 
-    function handleStartDate(date){
+    function handleStartDate(date) {
         setStartDate(date);
     }
     return (
         <>
+            <Modal ref={modalRef}>
+                <h2>Oops... There apprears to be an issue</h2>
+                <p>Please make sure you populate title and desc</p>
+                <form method="dialog">
+                 <button>Close</button>
+                </form>
+            </Modal>
             <div className="flex flex-col">
                 <div className=" text-lg flex flex-row items-center justify-end gap-5 py-10">
                     <button >Cancel</button>
