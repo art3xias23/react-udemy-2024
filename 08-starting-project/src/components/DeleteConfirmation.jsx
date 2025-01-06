@@ -1,18 +1,24 @@
 import {useEffect} from 'react';
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
+  var counter = 0;
   useEffect(() => {
 
-  const timeout = setTimeout(() => {
-    console.log("Confirm");
+  const timer = setTimeout(() => {
+    counter = counter +1;
+    console.log(`Timer Set ${counter}`);
     onConfirm();
   }, 3000);
 
     return () => {
-      console.log("cleaning up");
-      clearTimeout(timeout); 
+    counter = counter +1;
+    console.log(`Cleaning up ${counter}`);
+      clearTimeout(timer); 
     }
 
   }, [onConfirm]);
+
+    counter = counter +1;
+    console.log(`Rendering ${counter}`);
   return (
     <div id="delete-confirmation">
       <h2>Are you sure?</h2>
